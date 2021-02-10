@@ -1,0 +1,57 @@
+.contenedor {
+  /* padding: 1% 0; */
+  overflow: auto;
+  flex: auto;
+}
+
+.icondown {
+  background: url(../../icons/south-24px.svg);
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  animation: fadeIn;
+  animation-duration: 0.5s;
+}
+
+.icondown:hover {
+  /*** aquí va la sombra ***/
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 0 5px #999;
+  -moz-box-shadow: 0 0 5px #999;
+  -ms-box-shadow: 0 0 5px #999;
+  box-shadow: 0 0 5px #999;
+}
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+.contenedor::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.contenedor::-webkit-scrollbar:vertical {
+  width: 5px;
+}
+
+.contenedor::-webkit-scrollbar-button:increment,
+.contenedor::-webkit-scrollbar-button {
+  display: none;
+}
+
+.contenedor::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
+
+.contenedor::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 2px solid #f1f2f3;
+}
+
+.contenedor::-webkit-scrollbar-track {
+  border-radius: 10px;
+}

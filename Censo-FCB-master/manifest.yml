@@ -1,0 +1,9 @@
+applications:
+  - name: fcb-censo
+    memory: 256M
+    command: npm run start
+    env:
+      URL: https://southcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/
+      PERSONGROUPID: flag_pruebas
+      PERSONGROUPNAME: pruebas
+      SUBSCRIPTIONKEY: 1aab5d5101644dbcab30f02532cc133e

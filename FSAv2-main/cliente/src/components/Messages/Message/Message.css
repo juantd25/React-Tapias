@@ -1,0 +1,78 @@
+.messageBox {
+  background: #f3f3f3;
+  border-radius: 10px;
+  padding: 7px 7px;
+  color: white;
+  display: block;
+  max-width: 80%;
+}
+
+.messageText {
+  width: 100%;
+  letter-spacing: 0;
+  float: left;
+  padding: 5px;
+  word-wrap: break-word;
+}
+
+.messageText img {
+  vertical-align: middle;
+}
+
+.messageContainerLeft {
+  display: flex;
+  justify-content: flex-end;
+  /* padding: 0 5%; */
+  margin-top: 3px;
+  animation: fadeIn;
+  animation-duration: 0.5s;
+}
+
+.messageContainerRight {
+  display: flex;
+  justify-content: flex-end;
+  /* padding: 0 5%; */
+  margin-top: 3px;
+  animation: fadeIn;
+  animation-duration: 1.5s;
+}
+
+.sentText {
+  display: flex;
+  align-items: center;
+  /* font-family: Helvetica; */
+  color: #828282;
+  letter-spacing: 0.3px;
+}
+
+.pl-10 {
+  padding-left: 5px;
+}
+
+.pr-10 {
+  padding-right: 5px;
+}
+
+.justifyStart {
+  justify-content: flex-start;
+}
+
+.justifyEnd {
+  justify-content: flex-end;
+}
+
+.colorWhite {
+  color: white;
+}
+
+.colorDark {
+  color: #353535;
+}
+
+.backgroundRed {
+  background: #c62828;
+}
+
+.backgroundLight {
+  background: #f3f3f3;
+}
