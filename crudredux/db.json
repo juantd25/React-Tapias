@@ -22,8 +22,18 @@
     },
     {
       "nombre": "Jugo de Fresa",
-      "precio": "200",
+      "precio": "2000",
       "id": 5
+    },
+    {
+      "nombre": "nuevo",
+      "precio": 10,
+      "id": 6
+    },
+    {
+      "nombre": "Juan Esteban",
+      "precio": "644",
+      "id": 7
     }
   ]
 }
