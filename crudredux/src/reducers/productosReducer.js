@@ -5,6 +5,7 @@ import {
   COMENZAR_DESCARGA_PRODUCTOS,
   DESCARGA_PRODUCTOS_ERROR,
   DESCARGA_PRODUCTOS_EXITO,
+  EDITAR_TITULO_TABLE,
   OBTENER_PRODUCTO_EDITAR,
   OBTENER_PRODUCTO_ELIMINAR,
   PRODUCTO_EDITADO_ERROR,
@@ -19,6 +20,7 @@ const initialState = {
   loading: false,
   productoeliminar: null,
   productoeditar: null,
+  titulos: [],
 };
 
 export default function (state = initialState, action) {
@@ -56,6 +58,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         productoeliminar: action.payload,
+      };
+
+    case EDITAR_TITULO_TABLE:
+      return {
+        ...state,
+        titulos: action.payload,
       };
 
     case PRODUCTO_ELIMINADO_EXITO:

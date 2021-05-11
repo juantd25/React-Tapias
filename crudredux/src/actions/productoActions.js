@@ -13,6 +13,7 @@ import {
   OBTENER_PRODUCTO_EDITAR,
   COMENZAR_EDICION_PRODUCTO,
   PRODUCTO_EDITADO_EXITO,
+  EDITAR_TITULO_TABLE,
 } from '../types';
 
 // Crear nuevos producots
@@ -22,8 +23,8 @@ export function crearNuevoProductoAction(producto) {
 
     try {
       // Insertar en la API
-      await clienteAxios.post('/productos', producto);
-      dispatch(agregarProductoExito(producto));
+      const nuevoProducto = await clienteAxios.post('/productos', producto);
+      dispatch(agregarProductoExito(nuevoProducto.data));
       //   Swal.fire('Correcto', 'El producto se agregó correctamente', 'success');
       Swal.fire({
         position: 'center',
@@ -149,4 +150,15 @@ const editarProducto = (producto) => ({
 const editarProductoExito = (producto) => ({
   type: PRODUCTO_EDITADO_EXITO,
   payload: producto,
+});
+
+export function setTableTitle(title) {
+  return async (dispatch) => {
+    dispatch(editarTableTitle(title));
+  };
+}
+
+const editarTableTitle = (title) => ({
+  type: EDITAR_TITULO_TABLE,
+  payload: title,
 });

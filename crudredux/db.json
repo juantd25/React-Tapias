@@ -1,39 +1,28 @@
 {
   "productos": [
     {
-      "id": 1,
-      "nombre": "Jugo de Zanahoria",
-      "precio": "31111"
+      "nombre": "Juan Esteban",
+      "precio": 435345,
+      "edit": false,
+      "id": 1
     },
     {
-      "id": 2,
-      "nombre": "Jugo de Naranja",
-      "precio": "1"
-    },
-    {
-      "nombre": "Jugo de Naranja",
-      "precio": "300",
+      "nombre": "Juanitsos",
+      "precio": 1234567,
+      "edit": true,
       "id": 3
     },
     {
-      "nombre": "Rib Eye 800g",
-      "precio": "200",
+      "nombre": "nuevoasd contenido",
+      "precio": 12313123,
+      "edit": true,
       "id": 4
     },
     {
-      "nombre": "Jugo de Fresa",
-      "precio": "2000",
+      "nombre": "fghfghfghas",
+      "precio": 567567,
+      "edit": true,
       "id": 5
-    },
-    {
-      "nombre": "nuevo",
-      "precio": 10,
-      "id": 6
-    },
-    {
-      "nombre": "Juan Esteban",
-      "precio": "644",
-      "id": 7
     }
   ]
 }

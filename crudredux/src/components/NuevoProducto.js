@@ -7,6 +7,7 @@ const NuevoProducto = ({ history }) => {
   // state del componente
   const [nombre, setNombre] = useState('');
   const [precio, setPrecio] = useState(0);
+  const [edit, setEdit] = useState(false);
 
   // usar hook useDispatch
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const NuevoProducto = ({ history }) => {
     agregarProducto({
       nombre,
       precio,
+      edit,
     });
 
     // Redireccionar
@@ -80,6 +82,18 @@ const NuevoProducto = ({ history }) => {
               </div>
 
               <div className="form-group">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    value={edit}
+                    id="flexCheckDefault"
+                    onChange={(e) => setEdit(e.target.checked)}
+                  />
+                  <label className="form-check-label" for="flexCheckDefault">
+                    Editable?
+                  </label>
+                </div>
                 <input
                   type="submit"
                   className="btn btn-primary font-weight-bold text-uppercase d-block w-100"
