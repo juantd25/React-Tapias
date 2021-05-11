@@ -1,8 +1,9 @@
 import Header from './components/Header';
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Productos from './components/Productos';
 import EditarProducto from './components/EditarProducto';
+
+// import './App.css';
 
 // Redux
 import { Provider } from 'react-redux';

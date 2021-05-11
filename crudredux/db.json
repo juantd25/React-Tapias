@@ -1,26 +1,20 @@
 {
   "productos": [
     {
-      "nombre": "Juan Esteban",
-      "precio": 435345,
-      "edit": false,
-      "id": 1
-    },
-    {
       "nombre": "Juanitsos",
-      "precio": 1234567,
+      "precio": 12345678,
       "edit": true,
       "id": 3
     },
     {
       "nombre": "nuevoasd contenido",
-      "precio": 12313123,
+      "precio": 123131238,
       "edit": true,
       "id": 4
     },
     {
       "nombre": "fghfghfghas",
-      "precio": 567567,
+      "precio": 5675678,
       "edit": true,
       "id": 5
     }
