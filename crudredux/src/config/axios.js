@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const user = {
-  correo: 'juantd@hotmail.com',
-  contrasena: '1234',
+  correo: 'dontrampas@hotmail.com',
+  contrasena: '12345',
 };
 
 const clienteAxios = async () => {
@@ -12,7 +12,7 @@ const clienteAxios = async () => {
     headers: {
       Authorization: await axios.post('http://localhost:8080/login', user).then((token) => token.headers.authorization),
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
+      'Access-Control-Allow-Methods': 'PUT, DELETE, POST, GET, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
     },
   });
