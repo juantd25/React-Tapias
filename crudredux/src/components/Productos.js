@@ -120,6 +120,7 @@ const Productos = () => {
           </Fragment>
         ) : (
           <Fragment>
+            {console.log(productos)}
             <tbody>
               {productos.length === 0
                 ? 'No hay productos'

@@ -23,7 +23,8 @@ export function crearNuevoProductoAction(producto) {
 
     try {
       // Insertar en la API
-      const nuevoProducto = await clienteAxios.post('/productos', producto);
+      const cliente = await clienteAxios();
+      const nuevoProducto = await cliente.post('/productos', producto);
       dispatch(agregarProductoExito(nuevoProducto.data));
       //   Swal.fire('Correcto', 'El producto se agregó correctamente', 'success');
       Swal.fire({
@@ -64,7 +65,8 @@ export function obtenerProductosAction() {
   return async (dispatch) => {
     dispatch(descargarProducto());
     try {
-      const respuesta = await clienteAxios.get('/productos');
+      const cliente = await clienteAxios();
+      const respuesta = await cliente.get('/grupo');
       dispatch(descargaProductosExitosa(respuesta.data));
     } catch (error) {
       console.log(error);
@@ -93,8 +95,10 @@ export function borrarProductoAction(id) {
     dispatch(obtenerProductoEliminar(id));
 
     try {
-      await clienteAxios.delete(`/productos/${id}`);
-      dispatch(eliminarProductoExito());
+      const cliente = await clienteAxios();
+      const respuesta = await cliente.delete(`/grupo/${id}`);
+      console.log(respuesta);
+      dispatch(eliminarProductoExito(respuesta));
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -137,7 +141,8 @@ export function editarProductoAction(producto) {
     dispatch(editarProducto());
 
     try {
-      await clienteAxios.put(`/productos/${producto.id}`, producto);
+      const cliente = await clienteAxios();
+      await cliente.put(`/grupo/${producto.id}`, producto);
       dispatch(editarProductoExito(producto));
     } catch (error) {}
   };

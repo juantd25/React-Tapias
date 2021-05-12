@@ -2,7 +2,7 @@
   "productos": [
     {
       "nombre": "Juanitsos",
-      "precio": 12345678,
+      "precio": 123,
       "edit": true,
       "id": 3
     },
@@ -17,6 +17,12 @@
       "precio": 5675678,
       "edit": true,
       "id": 5
+    },
+    {
+      "nombre": "jessica",
+      "precio": 5431,
+      "edit": true,
+      "id": 6
     }
   ]
 }
