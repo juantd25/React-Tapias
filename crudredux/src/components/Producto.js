@@ -34,7 +34,7 @@ const Producto = ({ producto }) => {
 
   const onChangeValues = (e) => {
     setProducto({
-      ...producto,
+      ...productEdited,
       [e.target.name]: e.target.value,
     });
   };

@@ -23,9 +23,8 @@ const initialState = {
   titulos: [],
 };
 
-export default function (state = initialState, action) {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case PRODUCTO_ELIMINADO_ERROR:
     case COMENZAR_DESCARGA_PRODUCTOS:
     case AGREGAR_PRODUCTO:
       return {
@@ -91,4 +90,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default reducer;

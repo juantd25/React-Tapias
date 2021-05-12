@@ -8,6 +8,7 @@ import EditarProducto from './components/EditarProducto';
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';
+import Usuarios from './components/Users/Usuarios';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <div className="container">
           <Switch>
             <Route exact path="/productos" component={Productos} />
+            <Route exact path="/usuarios" component={Usuarios} />
             <Route exact path="/" component={EditarProducto} />
           </Switch>
         </div>
