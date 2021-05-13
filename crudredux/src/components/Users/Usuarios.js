@@ -15,7 +15,7 @@ const Usuarios = () => {
     const cargar = () => dispatch(obtenerUsuariosAction());
     cargar();
     dispatch(setTableTitle({ tableTitle: 'Listado de usuarios' }));
-  }, []);
+  }, [dispatch]);
 
   const usuarios = useSelector((state) => state.usuarios.usuarios);
   const error = useSelector((state) => state.usuarios.error);
@@ -30,7 +30,7 @@ const Usuarios = () => {
     setIsNew(true);
     setNewUser({ nombre: '', apellido: '', fecha: '', correo: '', idGrupo: 0, contrasena: '12345' });
 
-    dispatch(setTableTitle({ tableTitle: 'Agregar nuevo producto' }));
+    dispatch(setTableTitle({ tableTitle: 'Agregar nuevo usuario' }));
   };
 
   const guardar = (e) => {
@@ -49,8 +49,6 @@ const Usuarios = () => {
     dispatch(crearNuevoUsuarioAction(newUser));
     setIsNew(false);
     dispatch(setTableTitle({ tableTitle: 'Listado de usuarios' }));
-    history.push('/');
-    history.push('/Usuarios');
   };
 
   const onChangeEvent = (e) => {

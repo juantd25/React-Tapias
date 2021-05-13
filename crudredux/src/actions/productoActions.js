@@ -107,7 +107,9 @@ export function borrarProductoAction(id) {
         timer: 1500,
       });
       //   Swal.fire('Exito', 'Producto eliminado correctamente', 'success');
-    } catch (error) {}
+    } catch (error) {
+      dispatch(eliminarProductoError());
+    }
   };
 }
 

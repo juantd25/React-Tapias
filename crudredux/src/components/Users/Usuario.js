@@ -28,7 +28,6 @@ const Usuario = ({ data, history }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(borrarUsuarioAction(idUsuario));
-        history.push('/Usuarios');
       }
     });
   };
@@ -55,12 +54,10 @@ const Usuario = ({ data, history }) => {
     }
     setEditar(true);
     setUserEdited(data);
-    dispatch(setTableTitle({ tableTitle: 'Editar usuarios id = ' + idUsuario }));
+    dispatch(setTableTitle({ tableTitle: 'Editando a ' + nombre }));
   };
 
   const guardarEvent = () => {
-    console.log('editado', userEdited);
-
     userEdited.idGrupo = Number(userEdited.idGrupo);
     dispatch(editarUsuarioAction(userEdited));
     setEditar(false);
@@ -70,7 +67,6 @@ const Usuario = ({ data, history }) => {
       title: 'Guardado correctamente',
     });
     dispatch(setTableTitle({ tableTitle: 'Listado de usuarios' }));
-    history.push('/Usuarios');
   };
 
   const cancelarEvent = () => {
@@ -89,7 +85,12 @@ const Usuario = ({ data, history }) => {
             <input type="text" name="apellido" value={userEdited.apellido} onChange={onChangeEvent} />
           </td>
           <td>
-            <input type="date" name="fecha" value={userEdited.fecha} onChange={onChangeEvent} />
+            <input
+              type="date"
+              name="fecha"
+              value={userEdited.fecha ? userEdited.fecha.substr(0, 10) : ''}
+              onChange={onChangeEvent}
+            />
           </td>
           <td>
             <input type="email" name="correo" value={userEdited.correo} onChange={onChangeEvent} />
@@ -99,8 +100,8 @@ const Usuario = ({ data, history }) => {
           </td>
           <td>
             <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-              <i className="btn btn-outline-success btn-lg bi bi-check-lg" onClick={() => guardarEvent()}></i>
-              <i className="btn btn-danger btn-lg bi bi-x-lg" onClick={() => cancelarEvent()}></i>
+              <i className="btn btn-outline-success btn-lg bi bi-check-lg" onClick={() => guardarEvent(data)}></i>
+              <i className="btn btn-danger btn-lg bi bi-x-lg" onClick={() => cancelarEvent(data)}></i>
             </div>
           </td>
         </Fragment>

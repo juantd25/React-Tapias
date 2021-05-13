@@ -11,7 +11,7 @@ const Productos = () => {
     const cargarProductos = () => dispatch(obtenerProductosAction());
     cargarProductos();
     dispatch(setTableTitle({ tableTitle: 'Listado de productos' }));
-  }, []);
+  }, [dispatch]);
 
   const productos = useSelector((state) => state.productos.productos);
   const error = useSelector((state) => state.productos.error);

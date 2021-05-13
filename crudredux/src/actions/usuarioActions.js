@@ -13,6 +13,7 @@ import {
   AGREGAR_USUARIO,
   AGREGAR_USUARIO_EXITO,
   AGREGAR_USUARIO_ERROR,
+  USUARIO_EDITADO_ERROR,
 } from '../types';
 
 // Crear nuevos producots
@@ -65,7 +66,9 @@ export function editarUsuarioAction(Usuario) {
       // await cliente.put(`/usuario/${Usuario.idUsuario}`, Usuario);
       await cliente.put(`/usuario`, Usuario);
       dispatch(editarUsuarioExito(Usuario));
-    } catch (error) {}
+    } catch (error) {
+      dispatch(editarUsuarioError());
+    }
   };
 }
 
@@ -77,6 +80,11 @@ const editarUsuario = () => ({
 const editarUsuarioExito = (Usuario) => ({
   type: USUARIO_EDITADO_EXITO,
   payload: Usuario,
+});
+
+const editarUsuarioError = () => ({
+  type: USUARIO_EDITADO_ERROR,
+  payload: true,
 });
 
 export function borrarUsuarioAction(id) {
@@ -109,7 +117,6 @@ const obtenerUsuarioEliminar = (id) => ({
 
 const eliminarUsuarioExito = () => ({
   type: USUARIO_ELIMINADO_EXITO,
-  payload: null,
 });
 
 const eliminarUsuarioError = () => ({
