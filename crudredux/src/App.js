@@ -9,22 +9,25 @@ import EditarProducto from './components/EditarProducto';
 import { Provider } from 'react-redux';
 import store from './store';
 import Usuarios from './components/Users/Usuarios';
-import { CssBaseline } from '@material-ui/core';
+import { Container, CssBaseline } from '@material-ui/core';
+import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 
 function App() {
   return (
     <Router>
-      <CssBaseline />
-      <Provider store={store}>
-        <Header />
-        <div className="container">
+      {/* <CssBaseline /> */}
+      <Header />
+      {/* <ScopedCssBaseline> */}
+      <Container maxWidth="xl">
+        <Provider store={store}>
           <Switch>
             <Route exact path="/productos" component={Productos} />
             <Route exact path="/usuarios" component={Usuarios} />
             <Route exact path="/" component={EditarProducto} />
           </Switch>
-        </div>
-      </Provider>
+        </Provider>
+      </Container>
+      {/* </ScopedCssBaseline> */}
     </Router>
   );
 }

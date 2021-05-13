@@ -15,6 +15,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button, Icon, IconButton, Input, TextField } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles({
   table: {
@@ -26,9 +27,6 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
   },
 }))(TableCell);
 
@@ -114,8 +112,6 @@ const Usuarios = () => {
           </Button>
         )}
       </div>
-      {console.log(newUser)}
-      {alerta ? <p className={alerta.classes}>{alerta.msg}</p> : null}
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="Tabla de usuarios">
           <TableHead>
@@ -130,17 +126,17 @@ const Usuarios = () => {
           </TableHead>
           {isNew ? (
             <TableBody>
-              <StyledTableRow>
-                <StyledTableCell>
+              <TableRow>
+                <TableCell>
                   <Input placeholder="Nombre" name="nombre" value={newUser.nombre} onChange={onChangeEvent} />
-                </StyledTableCell>
-                <StyledTableCell>
+                </TableCell>
+                <TableCell>
                   <Input placeholder="Apellido" name="apellido" value={newUser.apellido} onChange={onChangeEvent} />
-                </StyledTableCell>
-                <StyledTableCell>
+                </TableCell>
+                <TableCell>
                   <TextField type="datetime-local" name="fecha" value={newUser.fecha} onChange={onChangeEvent} />
-                </StyledTableCell>
-                <StyledTableCell>
+                </TableCell>
+                <TableCell>
                   <Input
                     placeholder="Correo"
                     type="email"
@@ -148,8 +144,8 @@ const Usuarios = () => {
                     value={newUser.correo}
                     onChange={onChangeEvent}
                   />
-                </StyledTableCell>
-                <StyledTableCell>
+                </TableCell>
+                <TableCell>
                   <Input
                     placeholder="idGrupo"
                     type="number"
@@ -157,8 +153,8 @@ const Usuarios = () => {
                     value={newUser.idGrupo}
                     onChange={onChangeEvent}
                   />
-                </StyledTableCell>
-                <StyledTableCell>
+                </TableCell>
+                <TableCell>
                   <Button
                     variant="contained"
                     size="large"
@@ -167,8 +163,8 @@ const Usuarios = () => {
                   >
                     Guardar
                   </Button>
-                </StyledTableCell>
-              </StyledTableRow>
+                </TableCell>
+              </TableRow>
             </TableBody>
           ) : (
             <TableBody>
@@ -181,6 +177,16 @@ const Usuarios = () => {
           )}
         </Table>
       </TableContainer>
+      {alerta ? (
+        <Alert
+          onClose={() => {
+            dispatch(ocultarAlerta());
+          }}
+          severity="error"
+        >
+          {alerta.msg}
+        </Alert>
+      ) : null}
     </Fragment>
   );
 };

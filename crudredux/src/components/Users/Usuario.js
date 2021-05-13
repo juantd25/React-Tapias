@@ -1,40 +1,9 @@
-import {
-  ButtonGroup,
-  Icon,
-  IconButton,
-  Input,
-  makeStyles,
-  TableCell,
-  TableRow,
-  TextField,
-  withStyles,
-} from '@material-ui/core';
+import { ButtonGroup, Icon, IconButton, Input, TableCell, TableRow, TextField } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { setTableTitle } from '../../actions/productoActions';
 import { borrarUsuarioAction, editarUsuarioAction, obtenerUsuarioEditar } from '../../actions/usuarioActions';
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
-
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.focus,
-    },
-  },
-}))(TableRow);
 
 const Usuario = ({ data }) => {
   if (data.fecha === null) {
@@ -46,8 +15,6 @@ const Usuario = ({ data }) => {
 
   const [editar, setEditar] = useState(false);
   const [userEdited, setUserEdited] = useState({});
-
-  const classes = useStyles();
 
   const eliminarEvent = (idUsuario) => {
     Swal.fire({
@@ -111,28 +78,28 @@ const Usuario = ({ data }) => {
   return (
     <Fragment>
       {editar ? (
-        <StyledTableRow>
-          <StyledTableCell component="th" scope="row">
+        <TableRow>
+          <TableCell component="th" scope="row">
             <Input type="text" name="nombre" value={userEdited.nombre} onChange={onChangeEvent} />
-          </StyledTableCell>
-          <StyledTableCell>
+          </TableCell>
+          <TableCell>
             <Input type="text" name="apellido" value={userEdited.apellido} onChange={onChangeEvent} />
-          </StyledTableCell>
-          <StyledTableCell>
+          </TableCell>
+          <TableCell>
             <TextField
               type="datetime-local"
               name="fecha"
               value={userEdited.fecha ? userEdited.fecha.substr(0, 16) : ''}
               onChange={onChangeEvent}
             />
-          </StyledTableCell>
-          <StyledTableCell>
+          </TableCell>
+          <TableCell>
             <Input type="email" name="correo" value={userEdited.correo} onChange={onChangeEvent} />
-          </StyledTableCell>
-          <StyledTableCell>
+          </TableCell>
+          <TableCell>
             <Input type="number" name="idGrupo" value={userEdited.idGrupo} onChange={onChangeEvent} />
-          </StyledTableCell>
-          <StyledTableCell>
+          </TableCell>
+          <TableCell>
             <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
               <IconButton color="default" onClick={() => guardarEvent(data)}>
                 <Icon>save</Icon>
@@ -141,8 +108,8 @@ const Usuario = ({ data }) => {
                 <Icon>cancel</Icon>
               </IconButton>
             </ButtonGroup>
-          </StyledTableCell>
-        </StyledTableRow>
+          </TableCell>
+        </TableRow>
       ) : (
         <TableRow>
           <TableCell>{nombre}</TableCell>
@@ -178,46 +145,3 @@ const Toast = Swal.mixin({
 });
 
 export default Usuario;
-
-{
-  /* <td>
-            <input type="text" name="nombre" value={userEdited.nombre} onChange={onChangeEvent} />
-          </td>
-          <td>
-            <input type="text" name="apellido" value={userEdited.apellido} onChange={onChangeEvent} />
-          </td>
-          <td>
-            <input
-              type="date"
-              name="fecha"
-              value={userEdited.fecha ? userEdited.fecha.substr(0, 10) : ''}
-              onChange={onChangeEvent}
-            />
-          </td>
-          <td>
-            <input type="email" name="correo" value={userEdited.correo} onChange={onChangeEvent} />
-          </td>
-          <td>
-            <input type="number" name="idGrupo" value={userEdited.idGrupo} onChange={onChangeEvent} />
-          </td>
-          <td>
-            <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-              <i className="btn btn-outline-success btn-lg bi bi-check-lg" onClick={() => guardarEvent(data)}></i>
-              <i className="btn btn-danger btn-lg bi bi-x-lg" onClick={() => cancelarEvent(data)}></i>
-            </div>
-          </td> */
-}
-
-{
-  /* <td>{nombre}</td>
-          <td>{apellido}</td>
-          <td>{fecha ? fecha.substr(0, 10) : ''}</td>
-          <td>{correo}</td>
-          <td>{idGrupo}</td>
-          <td>
-            <div className="btn-group flex" role="group" aria-label="Basic outlined example">
-              <i className="btn btn-outline-primary btn-lg bi bi-brush" onClick={() => editarEvent(data)}></i>
-              <i className="btn btn-danger btn-lg bi bi-trash" onClick={() => eliminarEvent(idUsuario)}></i>
-            </div>
-          </td> */
-}
