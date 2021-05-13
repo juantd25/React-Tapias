@@ -1,3 +1,4 @@
+import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { mostrarAlerta, ocultarAlerta } from '../actions/alertaActions';

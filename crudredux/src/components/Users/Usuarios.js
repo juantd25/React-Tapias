@@ -4,13 +4,44 @@ import { mostrarAlerta, ocultarAlerta } from '../../actions/alertaActions';
 import { setTableTitle } from '../../actions/productoActions';
 import { crearNuevoUsuarioAction, obtenerUsuariosAction } from '../../actions/usuarioActions';
 import Usuario from './Usuario';
-import { useHistory } from 'react-router-dom';
+
+// Material UI
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { Button, Icon, IconButton, Input, TextField } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
 
 const Usuarios = () => {
   const dispatch = useDispatch();
-
-  const history = useHistory();
-
   useEffect(() => {
     const cargar = () => dispatch(obtenerUsuariosAction());
     cargar();
@@ -19,16 +50,18 @@ const Usuarios = () => {
 
   const usuarios = useSelector((state) => state.usuarios.usuarios);
   const error = useSelector((state) => state.usuarios.error);
-  const cargando = useSelector((state) => state.usuarios.loading);
+  const loading = useSelector((state) => state.usuarios.loading);
   const alerta = useSelector((state) => state.alerta.alerta);
   const titulos = useSelector((state) => state.productos.titulos);
+
+  const classes = useStyles();
 
   const [isNew, setIsNew] = useState(false);
   const [newUser, setNewUser] = useState({});
 
   const agregar = (e) => {
     setIsNew(true);
-    setNewUser({ nombre: '', apellido: '', fecha: '', correo: '', idGrupo: 0, contrasena: '12345' });
+    setNewUser({ nombre: '', apellido: '', fecha: '', correo: '', idGrupo: '', contrasena: '12345' });
 
     dispatch(setTableTitle({ tableTitle: 'Agregar nuevo usuario' }));
   };
@@ -69,70 +102,85 @@ const Usuarios = () => {
       <h1 className="text-center my-5">{titulos.tableTitle}</h1>
 
       {error ? <p className="font-weight-bold alert alert-danger text-center mt-2">Hubo un error</p> : null}
-      {cargando ? <p className="text-center mt-2">Cargando...</p> : null}
+      {loading ? <p className="text-center mt-2">Cargando...</p> : null}
       <div className="float-sm-end">
         {isNew ? (
-          <input type="button" className="btn btn-light" value="Volver al listado" onClick={cancelar} />
+          <Button variant="outlined" onClick={cancelar}>
+            Volver al listado
+          </Button>
         ) : (
-          <input type="button" className="btn btn-light" value="Agregar nuevo" onClick={agregar} />
+          <Button variant="outlined" onClick={agregar}>
+            Agregar nuevo
+          </Button>
         )}
       </div>
+      {console.log(newUser)}
       {alerta ? <p className={alerta.classes}>{alerta.msg}</p> : null}
-      <table className="table table-striped">
-        <thead className="bg-primary table-dark">
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Correo</th>
-            <th scope="col">IdGrupo</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-
-        {isNew ? (
-          <Fragment>
-            <tbody>
-              <tr>
-                <td>
-                  <input type="text" name="nombre" value={newUser.nombre} onChange={onChangeEvent} />
-                </td>
-                <td>
-                  <input type="text" name="apellido" value={newUser.apellido} onChange={onChangeEvent} />
-                </td>
-                <td>
-                  <input type="date" name="fecha" value={newUser.fecha} onChange={onChangeEvent} />
-                </td>
-                <td>
-                  <input type="email" name="correo" value={newUser.correo} onChange={onChangeEvent} />
-                </td>
-                <td>
-                  <input type="number" name="idGrupo" value={newUser.idGrupo} onChange={onChangeEvent} />
-                </td>
-                <td>
-                  <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                    <input
-                      type="button"
-                      className="btn btn-outline-success"
-                      onClick={() => guardar(newUser)}
-                      value="Guardar"
-                    />
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <tbody>
-              {console.log(usuarios)}
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="Tabla de usuarios">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Nombre</StyledTableCell>
+              <StyledTableCell>Apellido</StyledTableCell>
+              <StyledTableCell>Fecha</StyledTableCell>
+              <StyledTableCell>Correo</StyledTableCell>
+              <StyledTableCell>IdGrupo</StyledTableCell>
+              <StyledTableCell>Acciones</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          {isNew ? (
+            <TableBody>
+              <StyledTableRow>
+                <StyledTableCell>
+                  <Input placeholder="Nombre" name="nombre" value={newUser.nombre} onChange={onChangeEvent} />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Input placeholder="Apellido" name="apellido" value={newUser.apellido} onChange={onChangeEvent} />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <TextField type="datetime-local" name="fecha" value={newUser.fecha} onChange={onChangeEvent} />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Input
+                    placeholder="Correo"
+                    type="email"
+                    name="correo"
+                    value={newUser.correo}
+                    onChange={onChangeEvent}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Input
+                    placeholder="idGrupo"
+                    type="number"
+                    name="idGrupo"
+                    value={newUser.idGrupo}
+                    onChange={onChangeEvent}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    startIcon={<Icon>save</Icon>}
+                    onClick={() => guardar(newUser)}
+                  >
+                    Guardar
+                  </Button>
+                </StyledTableCell>
+              </StyledTableRow>
+            </TableBody>
+          ) : (
+            <TableBody>
               {usuarios.length === 0
                 ? 'No hay usuarios'
-                : usuarios.map((row) => <Usuario key={row.id} data={row} history={history} />)}
-            </tbody>
-          </Fragment>
-        )}
-      </table>
+                : usuarios.map((row) =>
+                    row.correo === 'admin@admin.com' ? null : <Usuario key={row.idUsuario} data={row} />
+                  )}
+            </TableBody>
+          )}
+        </Table>
+      </TableContainer>
     </Fragment>
   );
 };

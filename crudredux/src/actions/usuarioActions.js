@@ -63,7 +63,7 @@ export function editarUsuarioAction(Usuario) {
 
     try {
       const cliente = await clienteAxios();
-      // await cliente.put(`/usuario/${Usuario.idUsuario}`, Usuario);
+      Usuario.contrasena = '1234';
       await cliente.put(`/usuario`, Usuario);
       dispatch(editarUsuarioExito(Usuario));
     } catch (error) {

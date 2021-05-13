@@ -9,10 +9,12 @@ import EditarProducto from './components/EditarProducto';
 import { Provider } from 'react-redux';
 import store from './store';
 import Usuarios from './components/Users/Usuarios';
+import { CssBaseline } from '@material-ui/core';
 
 function App() {
   return (
     <Router>
+      <CssBaseline />
       <Provider store={store}>
         <Header />
         <div className="container">

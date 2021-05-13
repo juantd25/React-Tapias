@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const user = {
-  correo: 'juantd@hotmail.com',
-  contrasena: '1234',
+  correo: 'admin@admin.com',
+  contrasena: '12345',
 };
 
 const clienteAxios = async () => {
