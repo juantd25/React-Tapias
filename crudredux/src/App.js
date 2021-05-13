@@ -11,6 +11,7 @@ import store from './store';
 import Usuarios from './components/Users/Usuarios';
 import { Container, CssBaseline } from '@material-ui/core';
 import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
+import { Footer } from './components/Footer';
 
 function App() {
   return (
@@ -18,15 +19,18 @@ function App() {
       {/* <CssBaseline /> */}
       <Header />
       {/* <ScopedCssBaseline> */}
-      <Container maxWidth="xl">
-        <Provider store={store}>
-          <Switch>
-            <Route exact path="/productos" component={Productos} />
-            <Route exact path="/usuarios" component={Usuarios} />
-            <Route exact path="/" component={EditarProducto} />
-          </Switch>
-        </Provider>
-      </Container>
+      <main class="flex-shrink-0">
+        <Container maxWidth="lg">
+          <Provider store={store}>
+            <Switch>
+              <Route exact path="/productos" component={Productos} />
+              <Route exact path="/usuarios" component={Usuarios} />
+              <Route exact path="/" component={EditarProducto} />
+            </Switch>
+          </Provider>
+        </Container>
+      </main>
+      <Footer />
       {/* </ScopedCssBaseline> */}
     </Router>
   );

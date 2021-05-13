@@ -101,7 +101,7 @@ export function borrarUsuarioAction(id) {
         icon: 'success',
         title: 'usuario eliminado correctamente',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
       });
       //   Swal.fire('Exito', 'usuario eliminado correctamente', 'success');
     } catch (error) {
@@ -147,6 +147,7 @@ export function crearNuevoUsuarioAction(usuario) {
         icon: 'error',
         title: 'Hubo un error',
         text: 'Hubo un error, intenta de nuevo',
+        timer: 2000,
       });
     }
   };

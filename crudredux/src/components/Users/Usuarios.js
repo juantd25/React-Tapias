@@ -17,27 +17,6 @@ import Paper from '@material-ui/core/Paper';
 import { Button, Icon, IconButton, Input, TextField } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
-
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
-
 const Usuarios = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -192,3 +171,24 @@ const Usuarios = () => {
 };
 
 export default Usuarios;
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);

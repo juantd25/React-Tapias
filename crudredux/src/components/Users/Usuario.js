@@ -49,7 +49,7 @@ const Usuario = ({ data }) => {
         icon: 'error',
         title: 'El usuario no es editable',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
       });
       return;
     }
@@ -62,10 +62,15 @@ const Usuario = ({ data }) => {
     userEdited.idGrupo = Number(userEdited.idGrupo);
     dispatch(editarUsuarioAction(userEdited));
     setEditar(false);
-    Toast.fire({
-      position: 'right',
+
+    Swal.fire({
+      toast: true,
+      position: 'top',
       icon: 'success',
       title: 'Guardado correctamente',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: false,
     });
     dispatch(setTableTitle({ tableTitle: 'Listado de usuarios' }));
   };
@@ -119,10 +124,10 @@ const Usuario = ({ data }) => {
           <TableCell>{idGrupo}</TableCell>
           <TableCell>
             <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-              <IconButton color="default" onClick={() => editarEvent(data)}>
+              <IconButton title="Editar" color="default" onClick={() => editarEvent(data)}>
                 <Icon>edit</Icon>
               </IconButton>
-              <IconButton color="secondary" onClick={() => eliminarEvent(idUsuario)}>
+              <IconButton title="Borrar" color="secondary" onClick={() => eliminarEvent(idUsuario)}>
                 <Icon>delete</Icon>
               </IconButton>
             </ButtonGroup>
@@ -133,15 +138,15 @@ const Usuario = ({ data }) => {
   );
 };
 
-const Toast = Swal.mixin({
-  toast: true,
-  showConfirmButton: false,
-  timer: 1000,
-  timerProgressBar: true,
-  onOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer);
-    toast.addEventListener('mouseleave', Swal.resumeTimer);
-  },
-});
+// const Toast = Swal.fire({
+//   toast: true,
+//   showConfirmButton: false,
+//   timer: 2000,
+//   timerProgressBar: false,
+//   onOpen: (toast) => {
+//     toast.addEventListener('mouseenter', Swal.stopTimer);
+//     toast.addEventListener('mouseleave', Swal.resumeTimer);
+//   },
+// });
 
 export default Usuario;
