@@ -37,14 +37,14 @@ const Usuarios = () => {
   const [newUser, setNewUser] = useState({});
 
   const agregar = (e) => {
+    dispatch(setTableTitle({ tableTitle: 'Agregar nuevo usuario' }));
     setIsNew(true);
     setNewUser({ nombre: '', apellido: '', fecha: '', correo: '', idGrupo: '', contrasena: '12345' });
-
-    dispatch(setTableTitle({ tableTitle: 'Agregar nuevo usuario' }));
   };
 
   const guardar = (e) => {
     newUser.idGrupo = Number(newUser.idGrupo);
+    newUser.fecha = newUser.fecha.replace(-6, '-05:00');
     console.log(newUser);
     if (newUser.nombre === '' || newUser.idGrupo === 0) {
       const alerta = {
@@ -100,7 +100,7 @@ const Usuarios = () => {
               <StyledTableCell>Fecha</StyledTableCell>
               <StyledTableCell>Correo</StyledTableCell>
               <StyledTableCell>IdGrupo</StyledTableCell>
-              <StyledTableCell>Acciones</StyledTableCell>
+              <StyledTableCell align="center">Acciones</StyledTableCell>
             </TableRow>
           </TableHead>
           {isNew ? (
@@ -133,7 +133,7 @@ const Usuarios = () => {
                     onChange={onChangeEvent}
                   />
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   <Button
                     variant="contained"
                     size="large"
@@ -147,8 +147,8 @@ const Usuarios = () => {
             </TableBody>
           ) : (
             <TableBody>
-              {usuarios.length === 0
-                ? 'No hay usuarios'
+              {usuarios.length === 1 && usuarios[0].correo === 'admin@admin.com'
+                ? null
                 : usuarios.map((row) =>
                     row.correo === 'admin@admin.com' ? null : <Usuario key={row.idUsuario} data={row} />
                   )}
