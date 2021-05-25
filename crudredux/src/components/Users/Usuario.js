@@ -1,6 +1,6 @@
-import { Button, ButtonGroup, Fab, Icon, IconButton, Input, TableCell, TableRow, TextField } from '@material-ui/core';
+import { ButtonGroup, Icon, IconButton, Input, TableCell, TableRow, TextField } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { setTableTitle } from '../../actions/productoActions';
 import { borrarUsuarioAction, editarUsuarioAction, obtenerUsuarioEditar } from '../../actions/usuarioActions';
@@ -46,7 +46,6 @@ const Usuario = ({ data }) => {
 
     if (editar) {
       Swal.fire({
-        position: 'center',
         icon: 'error',
         title: 'El usuario no es editable',
         showConfirmButton: false,
@@ -75,7 +74,6 @@ const Usuario = ({ data }) => {
 
     Swal.fire({
       toast: true,
-      position: 'top',
       icon: 'success',
       title: 'Guardado correctamente',
       showConfirmButton: false,
@@ -189,13 +187,13 @@ const Usuario = ({ data }) => {
           </TableCell>
           <TableCell align="center">
             <ButtonGroup variant="text" color="primary">
-              <IconButton color="default" onClick={() => guardarEvent(data)}>
+              <IconButton title="Edición" disabled>
+                <Icon>edit</Icon>
+              </IconButton>
+              <IconButton title="Guardar" color="default" onClick={() => guardarEvent(data)}>
                 <Icon>save</Icon>
               </IconButton>
-              <IconButton>
-                <Icon></Icon>
-              </IconButton>
-              <IconButton color="secondary" onClick={() => cancelarEvent(data)}>
+              <IconButton title="Cancelar" color="secondary" onClick={() => cancelarEvent(data)}>
                 <Icon>cancel</Icon>
               </IconButton>
             </ButtonGroup>

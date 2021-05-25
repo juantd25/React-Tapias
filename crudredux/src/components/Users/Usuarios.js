@@ -14,7 +14,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Button, Icon, IconButton, Input, TextField } from '@material-ui/core';
+import { Button, Icon, IconButton, Input, Popover, TextField, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 const Usuarios = () => {
@@ -35,6 +35,11 @@ const Usuarios = () => {
 
   const [isNew, setIsNew] = useState(false);
   const [newUser, setNewUser] = useState({});
+
+  // Popper
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const id = open ? 'infoActions' : undefined;
 
   const agregar = (e) => {
     dispatch(setTableTitle({ tableTitle: 'Agregar nuevo usuario' }));
@@ -74,13 +79,21 @@ const Usuarios = () => {
     dispatch(ocultarAlerta());
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Fragment>
       <h1 className="text-center my-5">{titulos.tableTitle}</h1>
 
       {error ? <p className="font-weight-bold alert alert-danger text-center mt-2">Hubo un error</p> : null}
       {loading ? <p className="text-center mt-2">Cargando...</p> : null}
-      <div className="float-sm-end">
+      <div className="float-lg-end">
         {isNew ? (
           <Button variant="outlined" onClick={cancelar}>
             Volver al listado
@@ -100,7 +113,32 @@ const Usuarios = () => {
               <StyledTableCell>Fecha</StyledTableCell>
               <StyledTableCell>Correo</StyledTableCell>
               <StyledTableCell>IdGrupo</StyledTableCell>
-              <StyledTableCell align="center">Acciones</StyledTableCell>
+              <StyledTableCell align="center">
+                Acciones
+                <IconButton aria-describedby={id} variant="contained" onClick={handleClick}>
+                  <Icon style={{ color: 'white' }}>contact_support</Icon>
+                </IconButton>
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                >
+                  <Typography className={classes.typography}>
+                    <li>Editar</li>
+                    <li>Eliminar</li>
+                    <li>Cambiar contraseña</li>
+                  </Typography>
+                </Popover>
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           {isNew ? (
@@ -172,12 +210,6 @@ const Usuarios = () => {
 
 export default Usuarios;
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -185,10 +217,25 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
+// const StyledTableRow = withStyles((theme) => ({
+//   root: {
+//     '&:nth-of-type(odd)': {
+//       backgroundColor: theme.palette.action.hover,
+//     },
+//   },
+// }))(TableRow);
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    border: '1px solid',
+    padding: theme.spacing(1),
+    backgroundColor: theme.palette.background.paper,
   },
-}))(TableRow);
+  table: {
+    minWidth: 650,
+    fontSize: 14,
+  },
+  typography: {
+    padding: theme.spacing(2),
+  },
+}));

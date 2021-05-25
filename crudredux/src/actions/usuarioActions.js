@@ -97,7 +97,6 @@ export function borrarUsuarioAction(id) {
       console.log(respuesta);
       dispatch(eliminarUsuarioExito(respuesta));
       Swal.fire({
-        position: 'center',
         icon: 'success',
         title: 'usuario eliminado correctamente',
         showConfirmButton: false,
@@ -135,7 +134,6 @@ export function crearNuevoUsuarioAction(usuario) {
       dispatch(agregarUsuarioExito(respuesta.data));
       //   Swal.fire('Correcto', 'El usuario se agregó correctamente', 'success');
       Swal.fire({
-        position: 'center',
         icon: 'success',
         title: 'El usuario se agregó correctamente',
         showConfirmButton: false,
