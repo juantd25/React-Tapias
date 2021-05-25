@@ -16,10 +16,30 @@ class App extends Component {
     super(props);
     this.state = {
       counter: 0,
+      flag: false,
     };
+
+    console.log('constructor 1');
 
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+  }
+
+  // se puede usar para controlar los render de la app solo cuando realmente hay cambios de datos pure component
+  shouldComponentUpdate(nextProps, nextState) {
+    const {counter} = this.state;
+    if (nextState.counter === counter) return false;
+    else return true;
+  }
+
+  UNSAFE_componentWillMount() {
+    console.log('componentWillMount despues del constructor 2');
+  }
+
+  componentDidMount() {
+    this.setState({counter: 10});
+    console.log('componentDidMount despues del render 4');
   }
 
   handleUp() {
@@ -32,8 +52,21 @@ class App extends Component {
     this.setState({counter: ct - 1});
   }
 
+  handleReset() {
+    this.setState({counter: 0});
+  }
+
   render() {
-    const {counter} = this.state;
+    const {counter, flag} = this.state;
+    if (flag)
+      return (
+        <View>
+          <Text>Vacio</Text>
+        </View>
+      );
+
+    // this.setState llama al render por lo tanto no se llamar dentro del render
+    console.log('render 3');
     return (
       <View style={styles.container}>
         <View style={styles.subcontainer}>
@@ -44,6 +77,11 @@ class App extends Component {
           </View>
 
           <CustomButton label="+" action={this.handleUp} />
+        </View>
+        <View style={styles.subcontainerReset}>
+          <TouchableOpacity style={styles.btnReset} onPress={this.handleReset}>
+            <Text style={styles.btnTxt}>Reset</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -62,6 +100,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: 'row',
   },
+  subcontainerReset: {
+    height: 50,
+    width: '100%',
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
   btn: {
     width: 50,
     height: 50,
@@ -73,6 +120,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#7f8c8d',
     fontWeight: 'bold',
+  },
+  btnReset: {
+    height: 50,
+    width: '50%',
+    backgroundColor: '#ecf0f1',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   counterContainer: {
     flex: 1,
