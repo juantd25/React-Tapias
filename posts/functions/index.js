@@ -1,6 +1,10 @@
 const functions = require('firebase-functions');
 const createUser = require('./createUser');
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
+const admin = require('firebase-admin');
+const serviceAccount = require('./config/react-native-firebase-d849c-firebase-adminsdk-posom-f18d540711.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 exports.createUser = functions.https.onRequest(createUser);
