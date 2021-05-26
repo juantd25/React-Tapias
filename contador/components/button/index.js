@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, TouchableOpacity, StyleSheet, AppRegistry} from 'react-native';
 import PropTypes from 'prop-types';
 
 class ButtonCustom extends Component {
@@ -102,5 +102,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+AppRegistry.registerComponent('ButtonCustom', () => ButtonCustom);
 
 export default ButtonCustom;

@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 
-import {StyleSheet, Text, View} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View} from 'react-native';
 import ActionButtons from './components/actionButtons';
 import CustomButton from './components/button';
 
@@ -141,4 +141,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
+AppRegistry.registerComponent('contedor', () => App);
+
 export default App;

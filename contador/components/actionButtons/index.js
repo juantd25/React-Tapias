@@ -34,4 +34,6 @@ const styles = StyleSheet.create({
   },
 });
 
+AppRegistry.registerComponent('ActionButtons', () => ActionButtons);
+
 export default ActionButtons;
