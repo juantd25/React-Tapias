@@ -22,19 +22,16 @@ module.exports = function (req, res) {
       password,
       displayName,
     })
-    .then(userRecord => {
-      const code = Math.floor(Math.random() * 99999);
-      return twilio.messages
-        .create({
-          body: 'Your code is ' + code,
-          from: '+13605024714',
-          to: '+573147499628',
-        })
-        .then(message => res.send(userRecord));
-    })
-    .catch(error => {
-      return res.status(500).send({err: 'algo salio mal', error});
-    });
+    .then(userRecord => res.status(200).send(userRecord))
+    .catch(error => res.status(500).send({err: 'algo salio mal', error}));
 
-  // Retornar información
+  // Notificación con twilio
+  // const code = Math.floor(Math.random() * 99999);
+  // return twilio.messages
+  //   .create({
+  //     body: 'Your code is ' + code,
+  //     from: '+13605024714',
+  //     to: '+573147499628',
+  //   })
+  //   .then(message => res.send(userRecord));
 };

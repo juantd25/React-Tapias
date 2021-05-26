@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, {Component} from 'react';
 import {
   StyleSheet,
@@ -7,66 +6,67 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import createUser from '../../api/user';
 
 export default class CreateUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Email: null,
-      Password: null,
-      Phone: null,
+      email: null,
+      password: null,
+      phoneNumber: null,
+      displayName: null,
     };
   }
 
   componentDidMount() {
-    const _path = 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200';
-    const _pathInst = 'https://pokeapi.co/api/v2/';
-    const _headers = {
-      'Content-Type': 'application/json',
-    };
-
-    axios.get(_path).then(result => console.log(result.data));
-
-    axios({method: 'get', headers: _headers, url: _path}).then(result =>
-      console.log(result.data),
-    );
-
-    const instAxios = axios.create({baseURL: _pathInst, headers: _headers});
-
-    instAxios({
-      method: 'get',
-      url: 'pokemon?limit=100&offset=200',
-    }).then(result => console.log(result.data.results));
+    // test.get().then(result => console.log(result));
   }
 
   render() {
-    const {Email, Password, Phone} = this.state;
+    const {email, password, phoneNumber, displayName} = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Email:</Text>
+        <Text style={styles.title}>email:</Text>
         <TextInput
           keyboardType="email-address"
           style={styles.text}
-          value={Email}
-          onChangeText={val => this.setState({Email: val})}
+          value={email}
+          onChangeText={val => this.setState({email: val})}
         />
-        <Text style={styles.title}>Password:</Text>
+        <Text style={styles.title}>password:</Text>
         <TextInput
           secureTextEntry
           style={styles.text}
-          value={Password}
-          onChangeText={val => this.setState({Password: val})}
+          value={password}
+          onChangeText={val => this.setState({password: val})}
         />
-        <Text style={styles.title}>Phone:</Text>
+        <Text style={styles.title}>phoneNumber:</Text>
         <TextInput
           keyboardType="number-pad"
           style={styles.text}
-          value={Phone}
-          onChangeText={val => this.setState({Phone: val})}
+          value={phoneNumber}
+          onChangeText={val => this.setState({phoneNumber: val})}
+        />
+        <Text style={styles.title}>displayName:</Text>
+        <TextInput
+          keyboardType="number-pad"
+          style={styles.text}
+          value={displayName}
+          onChangeText={val => this.setState({displayName: val})}
         />
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => console.log(this.state)}>
+          onPress={() => {
+            console.log(this.state);
+            const usr = {
+              email,
+              phoneNumber,
+              password,
+              displayName,
+            };
+            createUser.post(usr);
+          }}>
           <Text style={styles.title}>Save</Text>
         </TouchableOpacity>
       </View>
