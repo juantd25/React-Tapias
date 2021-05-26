@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const twilio = require('./twilio');
 
 module.exports = function (req, res) {
   const {email, phoneNumber, password, displayName} = req.body;
@@ -22,7 +23,14 @@ module.exports = function (req, res) {
       displayName,
     })
     .then(userRecord => {
-      return res.status(200).send(userRecord);
+      const code = Math.floor(Math.random() * 99999);
+      return twilio.messages
+        .create({
+          body: 'Your code is ' + code,
+          from: '+13605024714',
+          to: '+573147499628',
+        })
+        .then(message => res.send(userRecord));
     })
     .catch(error => {
       return res.status(500).send({err: 'algo salio mal', error});
