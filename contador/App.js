@@ -8,7 +8,8 @@
 
 import React, {Component} from 'react';
 
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import ActionButtons from './components/actionButtons';
 import CustomButton from './components/button';
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.handlePlus = this.handlePlus.bind(this);
   }
 
   // se puede usar para controlar los render de la app solo cuando realmente hay cambios de datos pure component
@@ -56,6 +58,11 @@ class App extends Component {
     this.setState({counter: 0});
   }
 
+  handlePlus() {
+    const {counter: ct} = this.state;
+    this.setState({counter: ct + 10});
+  }
+
   render() {
     const {counter, flag} = this.state;
     if (flag)
@@ -66,22 +73,17 @@ class App extends Component {
       );
 
     // this.setState llama al render por lo tanto no se llamar dentro del render
-    console.log('render 3');
     return (
       <View style={styles.container}>
         <View style={styles.subcontainer}>
           <CustomButton label="-" action={this.handleDown} />
-
           <View style={styles.counterContainer}>
             <Text style={styles.counter}>{counter}</Text>
           </View>
-
           <CustomButton label="+" action={this.handleUp} />
         </View>
         <View style={styles.subcontainerReset}>
-          <TouchableOpacity style={styles.btnReset} onPress={this.handleReset}>
-            <Text style={styles.btnTxt}>Reset</Text>
-          </TouchableOpacity>
+          <ActionButtons reset={this.handleReset} plus={this.handlePlus} />
         </View>
       </View>
     );
@@ -139,5 +141,4 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-
 export default App;
