@@ -1,4 +1,3 @@
-import * as React from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -9,29 +8,61 @@ import {
   Fab,
   TextFieldProps,
   OutlinedInputProps,
-  FilledTextFieldProps,
   FormLabel,
-  IconButton,
-  FormControl,
-  InputLabel,
-  Input,
-  InputAdornment,
   Radio,
+  FormControlLabel,
+  RadioProps,
+  FormControlLabelProps,
+  Checkbox,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import Icon from "../public/Icon";
-import IconError from "../public/IconError";
-import IconInformation from "../public/IconInformation";
-import IconSuccess from "../public/IconSuccess";
-import IconUsuario from "../public/IconUsuario";
-import IconBuscar from "../public/IconBuscar";
-import IconQuestion from "../public/IconQuestion";
+import Icon from "public/icons/Icon";
+import IconError from "public/icons/IconError";
+import IconInformation from "public/icons/IconInformation";
+import IconSuccess from "public/icons/IconSuccess";
+import IconBuscar from "public/icons/IconBuscar";
+import IconQuestion from "public/icons/IconQuestion";
+import Radiobutton from "public/icons/Radiobutton";
+import TerperTextField from "components/common/TerpelTextField";
+import RadioGroup, {useRadioGroup} from "@material-ui/core/RadioGroup";
+import Link from "src/Link";
+import {useState} from "react";
+
+interface StyledFormControlLabelProps extends FormControlLabelProps {
+  checked: boolean;
+}
+const StyledFormControlLabel = styled((props: StyledFormControlLabelProps & {small?: boolean}) => (
+  <FormControlLabel {...props} />
+))(({theme, checked, small}) => ({
+  color: "#555869",
+
+  ".MuiFormControlLabel-label": checked
+    ? {
+        color: "#282B39",
+        fontSize: small ? 14 : 16,
+      }
+    : {fontSize: small ? 14 : 16},
+}));
+function TerpelControlLabel(props: FormControlLabelProps & {small?: boolean}) {
+  const radioGroup = useRadioGroup();
+
+  let checked = false;
+
+  if (radioGroup) {
+    checked = radioGroup.value === props.value;
+  }
+
+  return <StyledFormControlLabel checked={checked} {...props} />;
+}
 
 const Buttons = () => (
   <Container>
     <Box sx={{flex: 1}}>
       <Grid container spacing={1}>
         <Grid item xs={4}>
+          <Button variant="secundary" component={Link} noLinkStyle href="/about">
+            Ir about
+          </Button>
           <Button variant="primary" size="large" endIcon={<Icon />} disableElevation>
             Label
           </Button>
@@ -118,6 +149,20 @@ const Buttons = () => (
   </Container>
 );
 
+const Fabs = () => (
+  <Box>
+    <Fab variant="primary" size="small">
+      <Icon />
+    </Fab>
+    <Fab variant="primary" size="medium">
+      <Icon />
+    </Fab>
+    <Fab variant="primary" size="large">
+      <Icon />
+    </Fab>
+  </Box>
+);
+
 const Typographys = () => (
   <Container>
     <Typography variant="h1">Texto</Typography>
@@ -130,9 +175,9 @@ const Typographys = () => (
 );
 
 const Inputs = () => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
 
-  const handleChange = event => {
+  const handleChange = (event: any) => {
     event.preventDefault();
     setValue(event.target.value);
     console.log(value);
@@ -140,7 +185,7 @@ const Inputs = () => {
 
   return (
     <Container>
-      <TerpelMessageField
+      <TerperTextField
         focused
         error={true}
         label="Label Top"
@@ -148,7 +193,7 @@ const Inputs = () => {
         message="Mensaje de error con la solución explicita para el usuario"
         id="input1"
       />
-      <TerpelMessageField
+      <TerperTextField
         focused
         info
         label="Label Top"
@@ -156,7 +201,7 @@ const Inputs = () => {
         message="Mensaje de error con la solución explicita para el usuario"
         id="input2"
       />
-      <TerpelMessageField
+      <TerperTextField
         focused
         success
         label="Label Top"
@@ -164,7 +209,7 @@ const Inputs = () => {
         message="Mensaje de error con la solución explicita para el usuario"
         id="input3"
       />
-      <TerpelMessageField
+      <TerperTextField
         disabled
         variant="filled"
         focused
@@ -173,17 +218,17 @@ const Inputs = () => {
         defaultValue="1036661586"
         id="input4"
       />
-      <TerpelMessageField variant="filled" label="Label Top" placeholder="Label" id="input5" />
-      <TerpelMessageField variant="filled" label="Label Top" placeholder="Label" defaultValue="Label" id="input6" />
-      <TerpelMessageField
+      <TerperTextField variant="filled" label="Label Top" placeholder="Label" id="input5" />
+      <TerperTextField variant="filled" label="Label Top" placeholder="Label" defaultValue="Label" id="input6" />
+      <TerperTextField
         variant="filled"
         label="Label Top"
         placeholder="Label"
         // iconleft={<IconUsuario />}
-        iconright={<IconQuestion color="action" />}
+        iconright={<IconQuestion color="disabled" />}
         id="input7"
       />
-      <TerpelMessageField
+      <TerperTextField
         size="small"
         variant="filled"
         label="Label Top"
@@ -194,13 +239,22 @@ const Inputs = () => {
         onFocus={handleChange}
         onBlur={handleChange}
       />
-
-      <TerpelMessageField
+      <TerperTextField
         size="small"
         variant="filled"
         label="Label Top"
         placeholder="Label"
-        iconright={<IconError />}
+        iconleft={<Typography variant="h5">CC</Typography>}
+        value={value}
+        onChange={handleChange}
+        onFocus={handleChange}
+        onBlur={handleChange}
+      />
+      <TerperTextField
+        variant="filled"
+        label="Label Top"
+        placeholder="Label"
+        iconright={<TerpelRadioButton />}
         value={value}
         onChange={handleChange}
         onFocus={handleChange}
@@ -216,6 +270,38 @@ type Props = TextFieldProps & {
   info?: boolean | string;
   success?: boolean | string;
   message?: string;
+};
+
+const RadioButtons = () => (
+  <RadioGroup name="use-radio-group" defaultValue="first">
+    <TerpelControlLabel value="second" label="Second" control={<TerpelRadioButton size="medium" disabled />} />
+    <TerpelControlLabel value="Tres" label="Tres" control={<TerpelRadioButton size="medium" />} />
+    <TerpelControlLabel value="Cuatro" label="Cuatro" control={<TerpelRadioButton size="small" />} small />
+    <TerpelControlLabel value="first" label="First" control={<TerpelRadioButton size="small" />} small />
+  </RadioGroup>
+);
+
+const TerpelRadioButton = (props: RadioProps) => {
+  return (
+    <Radio
+      {...props}
+      sx={{
+        width: props.size === "small" ? 18 : 24,
+        height: props.size === "small" ? 18 : 24,
+        margin: !props.size ? undefined : "0px 12px",
+        backgroundColor: "#FFFFFF",
+        "&:hover": {
+          color: "#15ADCE",
+        },
+      }}
+      checkedIcon={
+        <Radiobutton
+          sx={{width: props.size === "small" ? 18 : 24, height: props.size === "small" ? 18 : 24}}
+          color={props.disabled ? "disabled" : "primary"}
+        />
+      }
+    />
+  );
 };
 
 const TerpelStyle = styled((props: Props) => (
@@ -280,7 +366,7 @@ const TerpelStyle = styled((props: Props) => (
   },
 }));
 
-const TerpelMessageField = (props: Props) => {
+export const TerperInput = (props: Props) => {
   const {info, success, error, message} = props;
 
   return (
@@ -290,7 +376,7 @@ const TerpelMessageField = (props: Props) => {
         <Box sx={{flex: "none", order: 0, flexGrow: 0, paddingRight: 1}}>
           {!message ? null : error ? <IconError /> : info ? <IconInformation /> : success ? <IconSuccess /> : null}
         </Box>
-        <Box>
+        <Box sx={{width: 294}}>
           <FormLabel
             htmlFor="input3"
             sx={{
@@ -308,8 +394,25 @@ export default function Index() {
   return (
     <Container>
       <Buttons />
+      <Fabs />
       <Inputs />
       <Typographys />
+      <RadioButtons />
+
+      <Checkbox
+        disabled
+        sx={{
+          width: 24,
+          height: 24,
+        }}
+      />
+
+      <Checkbox
+        sx={{
+          width: 24,
+          height: 24,
+        }}
+      />
     </Container>
   );
 }
